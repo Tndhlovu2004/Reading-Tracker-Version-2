@@ -49,13 +49,16 @@ def add_book():
      json.dump(books, file)
 
 def view_books():
-   
-   for book in books:
-        print(f"Title: {book["Title"]}")
-        print(f"Author: {book["Author"]}")
-        print(f"Rating: {book["Rating"]}")
-        print(f"Genre: {book["Genre"]}")
-        print()
+
+   if len(books) == 0:
+     print("You have not added any books yet.")
+   else: 
+    for book in books:
+      print(f"Title: {book["Title"]}")
+      print(f"Author: {book["Author"]}")
+      print(f"Rating: {book["Rating"]}")
+      print(f"Genre: {book["Genre"]}")
+      print()
   
 while True:
 
@@ -67,12 +70,22 @@ while True:
  print("2. View your books.")
  print("3. Exit.")
 
- option = int(input("What would you like to do? "))
+ while True:
+   try:
+    option = int(input("What would you like to do? "))
+    if option < 1 or option > 3:
+      print("Your option has to be between 1 and 3. Please try again.")
+      continue
+    break
+   except ValueError:
+    print("Option is not valid. Please try again.")
 
  if option == 1: 
    add_book()
  if option == 2:
    view_books()
+ if option == 3:
+   break
    
    
 
