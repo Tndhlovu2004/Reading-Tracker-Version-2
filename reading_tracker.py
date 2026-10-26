@@ -8,8 +8,24 @@ except FileNotFoundError:
 
   with open("name.json", "w") as file:
    json.dump(name, file)
-   
+ 
+try: 
+ with open("year.json", "r") as file:
+  year = json.load(file)
+except FileNotFoundError:
+
+  while True:
+   try:
+    year = int(input("What is your current reading year? "))
+    break
+   except ValueError:
+     print("The year has to be a whole number. Please try again.")
+
+  with open("year.json", "w") as file:
+   json.dump(year, file)
+
 print(f"Hi {name}! Welcome to your Reading Tracker!")
+print()
 
 try:
   with open("books.json", "r") as file:
@@ -31,34 +47,43 @@ def add_book():
      continue
     break
    except ValueError:
-    print("The rating should be a whle number. Please try again.")
+    print("The rating should be a whole number. Please try again.")
     
-   book = {"Title": title,
-           "Author": author,
-           "Rating": rating,
-           "Genre": genre}
+  book = {"Title": title,
+        "Author": author,
+        "Rating": rating,
+        "Genre": genre}
+  
+  print()
+  print("You have added the book: ")
+  print(f"Title: {book["Title"]}")
+  print(f"Author: {book["Author"]}")
+  print(f"Rating: {book["Rating"]}")
+  print(f"Genre: {book["Genre"]}")
+  print()
 
-   print(f"Title: {book["Title"]}")
-   print(f"Author: {book["Author"]}")
-   print(f"Rating: {book["Rating"]}")
-   print(f"Genre: {book["Genre"]}")
+  books.append(book)
 
-   books.append(book)
+  with open("books.json", "w") as file:
+   json.dump(books, file)
 
-   with open("books.json", "w") as file:
-     json.dump(books, file)
+  input("Press enter to return to menu.")
 
 def view_books():
 
    if len(books) == 0:
      print("You have not added any books yet.")
    else: 
+    print(f"In {year}, you have read the following books: ")
+    print()
     for book in books:
       print(f"Title: {book["Title"]}")
       print(f"Author: {book["Author"]}")
       print(f"Rating: {book["Rating"]}")
       print(f"Genre: {book["Genre"]}")
       print()
+
+   input("Press enter to return to menu.")
   
 while True:
 
@@ -69,10 +94,12 @@ while True:
  print("1. Add a book.")
  print("2. View your books.")
  print("3. Exit.")
+ print()
 
  while True:
    try:
     option = int(input("What would you like to do? "))
+    print()
     if option < 1 or option > 3:
       print("Your option has to be between 1 and 3. Please try again.")
       continue
