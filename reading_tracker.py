@@ -38,18 +38,25 @@ def add_book():
            "Rating": rating,
            "Genre": genre}
 
-   for book in books:
-     print(f"Title: {book["Title"]}")
-     print(f"Author: {book["Author"]}")
-     print(f"Rating: {book["Rating"]}")
-     print(f"Genre: {book["Genre"]}")
-     print()
+   print(f"Title: {book["Title"]}")
+   print(f"Author: {book["Author"]}")
+   print(f"Rating: {book["Rating"]}")
+   print(f"Genre: {book["Genre"]}")
 
    books.append(book)
 
    with open("books.json", "w") as file:
      json.dump(books, file)
 
+def view_books():
+   
+   for book in books:
+        print(f"Title: {book["Title"]}")
+        print(f"Author: {book["Author"]}")
+        print(f"Rating: {book["Rating"]}")
+        print(f"Genre: {book["Genre"]}")
+        print()
+  
 while True:
 
  print("----------------------------------------------")
@@ -63,6 +70,11 @@ while True:
  option = int(input("What would you like to do? "))
 
  if option == 1: 
+   add_book()
+ if option == 2:
+   view_books()
+   
+   
 
    
 
